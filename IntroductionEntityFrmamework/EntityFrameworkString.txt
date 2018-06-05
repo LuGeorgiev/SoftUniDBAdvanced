@@ -1,0 +1,3 @@
+Scaffold-DbContext  -Connection "Server=.;Database=SoftUni;Integrated Security=True" -Provider Microsoft.EntityFrameworkCore.SqlServer -OutputDir Data/Models -Context SoftUniDbContext
+
+Scaffold-DbContext  -Connection "Server=LUBO-NB\SQLEXPRESS;Database=WMS;Integrated Security=True" -Provider Microsoft.EntityFrameworkCore.SqlServer -OutputDir Data/Models -Context WMSDbContext
