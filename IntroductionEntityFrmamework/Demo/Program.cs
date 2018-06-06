@@ -13,7 +13,7 @@ namespace Demo
             using (var context = new WMSDbContext())
             {
                 var clients = context
-                    .Client
+                    .Clients
                     .Include(c=>c.FirstName)
                     .ToList();
 
