@@ -8,8 +8,8 @@ namespace P02_DatabaseFirst.Data.Models
         public Employee()
         {
             Departments = new HashSet<Department>();
-            EmployeesProjects = new HashSet<EmployeeProject>();
-            InverseManager = new HashSet<Employee>();
+            EmployeeProjects = new HashSet<EmployeeProject>();
+            ManagedEmpolyees = new HashSet<Employee>();
         }
 
         public int EmployeeId { get; set; }
@@ -27,7 +27,7 @@ namespace P02_DatabaseFirst.Data.Models
         public Department Department { get; set; }
         public Employee Manager { get; set; }
         public ICollection<Department> Departments { get; set; }
-        public ICollection<EmployeeProject> EmployeesProjects { get; set; }
-        public ICollection<Employee> InverseManager { get; set; }
+        public ICollection<EmployeeProject> EmployeeProjects { get; set; }
+        public ICollection<Employee> ManagedEmpolyees { get; set; }
     }
 }

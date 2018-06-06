@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace P02_DatabaseFirst.Data.Models
 {
-    public partial class Address
+    public class Address
     {
         public Address()
         {
