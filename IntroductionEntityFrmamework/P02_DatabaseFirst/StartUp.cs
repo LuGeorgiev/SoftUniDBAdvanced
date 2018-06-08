@@ -49,12 +49,105 @@ namespace P02_DatabaseFirst
                 //10.	Departments with More Than 5 Employees
                 //PintDepartmentsWithMoreThanFiveEmployees(db);
 
+                //11.	Find Latest 10 Projects
+                //PrintLastTenProjects(db);
+
+                //12.	Increase Salaries
+                //IncreaseSalaries(db);
+
+                //13.	Find Employees by First Name Starting With "Sa"
+                //PrintEmployeeStartWith(db, "Sa");
+
                 //14.	Delete Project by Id
                 //DeletProjectById(db, 2);
 
+                //15.	Remove Towns
+                RemoveTown(db, "Seattle");
             }
         }
 
+        private static void RemoveTown(SoftUniContext db, string townName)
+        {
+            var townToDelete = db.Towns
+                .Where(x => x.Name == townName)
+                .FirstOrDefault();
+                
+            var adressesToDelete = db.Addresses
+                .Where(x => x.Town == townToDelete);
+            int count = 0;
+            foreach (var employee in db.Employees)
+            {
+                foreach (var address in adressesToDelete)
+                {
+                    if (employee.AddressId==address.AddressId)
+                    {                        
+                        employee.AddressId = null;
+                        count++;
+                    }
+                }
+            }
+            foreach (var address in adressesToDelete)
+            {
+                db.Addresses.Remove(address);
+            }
+            db.Towns.Remove(townToDelete);
+            db.SaveChanges();
+
+            Console.WriteLine($"{count} address in {townName} was deleted");
+        }
+        private static void PrintEmployeeStartWith(SoftUniContext db, string startsWith)
+        {
+            db.Employees
+                .Where(x => x.FirstName.StartsWith(startsWith))
+                .OrderBy(x => x.FirstName)
+                .ThenBy(x => x.LastName)
+                .Select(x => new
+                {
+                    Name = $"{x.FirstName} {x.LastName}",
+                    x.JobTitle,
+                    x.Salary
+                })
+                .ToList()
+                .ForEach(x => Console.WriteLine($"{x.Name} - {x.JobTitle} - (${x.Salary:F2})"));
+        }
+        private static void IncreaseSalaries(SoftUniContext db)
+        { 
+            var happyEmployees = db.Employees
+                .Where(x => x.Department.Name == "Engineering" || x.Department.Name == "Tool Design" ||
+                x.Department.Name == "Marketing" || x.Department.Name == "Information Services")
+                .OrderBy(x => x.FirstName)
+                .ThenBy(x => x.LastName);
+                
+
+            foreach (var emp in happyEmployees)
+            {
+                emp.Salary *= 1.12m;
+            }
+            db.SaveChanges();
+
+            foreach (var empolyee in happyEmployees)
+            {
+                Console.WriteLine($"{empolyee.FirstName} {empolyee.LastName} (${empolyee.Salary:F2})");
+            }
+        }
+        private static void PrintLastTenProjects(SoftUniContext db)
+        {
+            //var lastProjects = 
+                db.Projects
+                .OrderByDescending(x => x.StartDate)
+                .ThenBy(x => x.Name)
+                .Take(10)
+                .Select(x => new
+                {
+                    x.Name,
+                    x.Description,
+                    x.StartDate
+                })
+                .ToList()
+                .ForEach(x=>Console.WriteLine($"{x.Name }{Environment.NewLine}{x.Description}{Environment.NewLine}{x.StartDate.ToString("M/d/yyyy h:mm:ss tt")}"));
+
+
+        }
         private static void PintDepartmentsWithMoreThanFiveEmployees(SoftUniContext db)
         {
             var departments = db.Departments
@@ -85,7 +178,6 @@ namespace P02_DatabaseFirst
                 Console.WriteLine(new string('-',10));
             }
         }
-
         private static void PrintEmployeeById(SoftUniContext db, int employeeId)
         {
             var employees = db.Employees
@@ -111,7 +203,6 @@ namespace P02_DatabaseFirst
                 }
             }
         }
-
         private static void PrintAddressesByTown(SoftUniContext db)
         {
             var addresses = db.Addresses
@@ -192,7 +283,6 @@ namespace P02_DatabaseFirst
 
             return sb.ToString();    
         }
-
         private static string AddNewAddresAndUpdateEmployee(SoftUniContext db)
         {
             var address = new Address() { TownId = 4, AddressText = "Vitoshka 15" };
@@ -216,7 +306,6 @@ namespace P02_DatabaseFirst
             }
             return sb.ToString().TrimEnd();
         }
-
         private static string ExtractEmployeeFromDepartment(SoftUniContext db, string department)
         {
             var employees = db
@@ -241,7 +330,6 @@ namespace P02_DatabaseFirst
 
             return sb.ToString().TrimEnd();
         }
-
         private static string ExtractAllBySalary(SoftUniContext db, int salary)
         {
             var employees = db
@@ -259,7 +347,6 @@ namespace P02_DatabaseFirst
 
             return sb.ToString().TrimEnd();
         }
-
         private static string PrintAllEmployee(SoftUniContext db)
         {
             var employees = db
