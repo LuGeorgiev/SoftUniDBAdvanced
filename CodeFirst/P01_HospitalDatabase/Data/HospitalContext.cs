@@ -26,6 +26,9 @@ namespace P01_HospitalDatabase.Data
 
         public DbSet<PatientMedicament> PatientsMedicaments { get; set; }
 
+        //SecondTAsk
+        public DbSet<Doctor> Doctors { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -100,6 +103,15 @@ namespace P01_HospitalDatabase.Data
                 .WithMany(p => p.Visitations)
                 .HasForeignKey(p => p.PatientId)
                 .HasConstraintName("FK_Visitation_Patient");
+
+                //Second Problem
+                entity.HasOne(e => e.Doctor)
+                .WithMany(d => d.Visitations)
+                .HasForeignKey(d => d.DoctorId)
+                .HasConstraintName("FK_Visitation_Doctor");
+
+                entity.Property(e => e.DoctorId)
+                .IsRequired(false);
             });
 
             modelBuilder.Entity<Diagnose>(entity=> 
@@ -140,8 +152,26 @@ namespace P01_HospitalDatabase.Data
                 .HasForeignKey(e => e.MedicamentId);
 
                 entity.HasOne(e => e.Patient)
-                .WithMany(m => m.Perscriptions)
+                .WithMany(m => m.Prescriptions)
                 .HasForeignKey(e => e.PatientId);
+            });
+
+            //Second Problem
+            modelBuilder.Entity<Doctor>(entity => 
+            {
+                entity.HasKey(e => e.DoctorId);
+
+                entity.Property(e => e.Name)
+                .IsRequired()
+                .IsUnicode()
+                .HasMaxLength(100);
+
+                entity.Property(e => e.Speciality)
+                .IsRequired()
+                .IsUnicode()
+                .HasMaxLength(100);
+
+                //Visitation -> one to many
             });
         }
     }

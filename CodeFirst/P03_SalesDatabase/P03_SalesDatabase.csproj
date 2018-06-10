@@ -5,12 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20180610055950_AddDoctors.cs" />
+    <Compile Remove="Migrations\20180610100521_ProductsAddColumnDescription.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.0" />
   </ItemGroup>
 
 </Project>

@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HospitalDatabaseInitializer\HospitalDatabaseInitializer.csproj" />
     <ProjectReference Include="..\P01_HospitalDatabase\P01_HospitalDatabase.csproj" />
   </ItemGroup>
 

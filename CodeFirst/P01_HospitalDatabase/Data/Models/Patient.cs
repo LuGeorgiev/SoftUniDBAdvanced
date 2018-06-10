@@ -9,7 +9,7 @@ namespace P01_HospitalDatabase.Data.Models
         {
             this.Visitations = new List<Visitation>();
             this.Diagnoses = new List<Diagnose>();
-            this.Perscriptions = new List<PatientMedicament>();
+            this.Prescriptions = new List<PatientMedicament>();
         }
 
         public Patient(string firstName, string lastName, string address, string email, bool hasInsurance):base()
@@ -30,6 +30,6 @@ namespace P01_HospitalDatabase.Data.Models
 
         public ICollection<Visitation> Visitations { get; set; } //= new List<Visitation>();
         public ICollection<Diagnose> Diagnoses { get; set; } // = new List<Diagnose>();
-        public ICollection<PatientMedicament> Perscriptions { get; set; } //= new List<PatientMedicament>();
+        public ICollection<PatientMedicament> Prescriptions { get; set; } //= new List<PatientMedicament>();
     }
 }

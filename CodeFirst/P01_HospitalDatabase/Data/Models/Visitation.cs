@@ -19,5 +19,9 @@ namespace P01_HospitalDatabase.Data.Models
 
         public int PatientId { get; set; }
         public Patient Patient{ get; set; }
+
+        //Because there will be Visitations without doctors in Initial Migration we use INT?
+        public int? DoctorId { get; set; }
+        public Doctor Doctor { get; set; }
     }
 }

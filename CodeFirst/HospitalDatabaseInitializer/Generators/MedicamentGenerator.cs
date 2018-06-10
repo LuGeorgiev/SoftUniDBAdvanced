@@ -5,7 +5,7 @@
     using P01_HospitalDatabase.Data;
     using P01_HospitalDatabase.Data.Models;
 
-    class MedicamentGenerator
+    public class MedicamentGenerator
     {
         internal static void InitialMedicamentSeed(HospitalContext context)
         {
