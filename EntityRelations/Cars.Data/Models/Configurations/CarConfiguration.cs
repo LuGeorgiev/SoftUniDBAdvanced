@@ -14,7 +14,7 @@ namespace Cars.Data.Models.Configurations
             builder
                 .HasOne(c => c.LicensePlate)
                 .WithOne(lp => lp.Car)
-                .HasForeignKey<LicensePlate>(lp => lp.CarId); // oen to one TYPE is needed
+                .HasForeignKey<LicensePlate>(lp => lp.CarId); // one to one TYPE is needed
             //One to Many
             builder
                 .HasMany(c => c.CarDealerships)

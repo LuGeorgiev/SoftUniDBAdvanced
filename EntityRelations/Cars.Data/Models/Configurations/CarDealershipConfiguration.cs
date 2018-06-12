@@ -18,6 +18,9 @@ namespace Cars.Data.Models.Configurations
                 .HasForeignKey(cd => cd.CarId);
 
             builder
+                .ToTable("CarsDealerships");
+
+            builder
                 .HasOne(cd => cd.Dealership)
                 .WithMany(d => d.CarDealerships)
                 .HasForeignKey(cd => cd.DealershipId);
