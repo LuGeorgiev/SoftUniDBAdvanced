@@ -1,9 +1,9 @@
 ﻿using Forum.App.Commands.Contracts;
 using Forum.Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using AutoMapper.QueryableExtensions;
 using System.Text;
+using System.Linq;
+using Forum.App.Models;
 
 namespace Forum.App.Commands
 {
@@ -17,17 +17,23 @@ namespace Forum.App.Commands
         }
         public string Execute(params string[] args)
         {
-            var posts = postService.All()
-                .GroupBy(p=>p.Category)
+            //Automapper approach
+            var posts = postService
+                .All<PostDto>()                
+                .GroupBy(p => p.CategoryName)
                 .ToArray();
+
+            //var posts = postService.All()
+            //    .GroupBy(p=>p.Category)
+            //    .ToArray();
 
             var sb = new StringBuilder();
             foreach (var group in posts)
             {
-                sb.AppendLine($"Category: {group.Key.Name}");
+                sb.AppendLine($"Category: {group.Key}");
                 foreach (var post in group)
                 {
-                    sb.AppendLine($"-{post.Id}. {post.Title}. {post.Content} by {post.Author.Username}");                  
+                    sb.AppendLine($"-{post.Id}. {post.Title}. {post.Content} by {post.AuthorUsername}");                  
                 }
             }
 

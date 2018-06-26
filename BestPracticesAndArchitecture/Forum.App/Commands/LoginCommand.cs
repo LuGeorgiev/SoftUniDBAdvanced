@@ -20,13 +20,14 @@ namespace Forum.App.Commands
             var username = args[0];
             var password = args[1];
 
-            var user = userService.FindByUsernameAndPAssword(username, password);
+            //TODO - need refactoring. cannot work like that
+            //var user = userService.FindByUsernameAndPassword(username, password);
 
-            if (user==null)
-            {
-                return "Invalid username or password";
-            }
-            Session.User = user;
+            //if (user==null)
+            //{
+            //    return "Invalid username or password";
+            //}
+            //Session.User = user;
 
             return $"Logged in successfully";
         }

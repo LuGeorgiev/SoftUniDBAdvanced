@@ -1,4 +1,5 @@
 ﻿using Forum.App.Commands.Contracts;
+using Forum.Models;
 using Forum.Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -19,13 +20,18 @@ namespace Forum.App.Commands
             var userName = args[0];
             var password = args[1];
 
-            var existingUser = userService.FindByUsername(userName);
+            //var existingUser = userService.FindByUsername(userName);
+
+            //Automapper
+            var existingUser = userService.FindByUsername<User>(userName);
+
             if (existingUser!=null)
             {
                 return "There is existing user with that userName!";
             }
 
-            userService.Create(userName, password);
+            //Refactoerd
+            userService.Create<User>(userName, password);
 
             return "User created successfully!";
         }

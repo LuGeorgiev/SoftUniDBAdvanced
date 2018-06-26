@@ -7,14 +7,25 @@ namespace Forum.Services.Contracts
 {
     public interface IUserService
     {
-        User FindUserByID(int Id);
+        //User FindUserByID(int Id);
 
-        User FindByUsername(string username);
+        //User FindByUsername(string username);
 
-        User FindByUsernameAndPAssword(string username, string password);
+        //User FindByUsernameAndPassword(string username, string password);
 
-        User Create(string username, string password);
+        //User Create(string username, string password);
 
-        void Delete(int id); 
+        //void Delete(int id);
+
+        //Automapper Implementation
+        TModel FindUserByID<TModel>(int Id);
+
+        TModel FindByUsername<TModel>(string username);
+
+        TModel FindByUsernameAndPassword<TModel>(string username, string password);
+
+        TModel Create<TModel>(string username, string password);
+
+        void Delete(int id);
     }
 }

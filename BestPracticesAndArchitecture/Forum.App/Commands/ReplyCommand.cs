@@ -1,4 +1,5 @@
 ﻿using Forum.App.Commands.Contracts;
+using Forum.App.Models;
 using Forum.Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace Forum.App.Commands
             }
             var authorId = Session.User.Id;
 
-            replyService.Create(content, postId, authorId);
+            replyService.Create<ReplyDto>(content, postId, authorId);
 
             return $"Reply created successfully!";
         }

@@ -1,4 +1,5 @@
 ﻿using Forum.App.Commands.Contracts;
+using Forum.App.Models;
 using Forum.Models;
 using Forum.Services.Contracts;
 using System;
@@ -29,18 +30,19 @@ namespace Forum.App.Commands
                 return "You are not logged in!";
             }
 
-            var category = categoryService.FindByName(categoryName);
+            var category = categoryService.FindByName<CategoryDto>(categoryName);
             if (category==null)
             {
-                category = categoryService.Create(categoryName);
+                category = categoryService.Create<CategoryDto>(categoryName);
             }
 
             var authorId = Session.User.Id;
             var categoryId = category.Id;
 
-            var post = postService.Create( postTitle, postContent, category.Id, authorId);
+            var post = postService.Create<PostDto>( postTitle, postContent, category.Id, authorId);
 
             return $"Post with id{post.Id} created successfully!";
         }
     }
+    
 }

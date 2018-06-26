@@ -1,4 +1,7 @@
-﻿using Forum.Data;
+﻿using AutoMapper;
+using Forum.App.Models;
+using Forum.Data;
+using Forum.Models;
 using Forum.Services;
 using Forum.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +15,10 @@ namespace Forum.App
         static void Main(string[] args)
         {
             var serviceProvider = ConfigureService();
+
+            //mapping onjects
+            InitializeAutomapper();
+
             var engine = new Engine(serviceProvider);
             engine.Run();
             
@@ -19,6 +26,24 @@ namespace Forum.App
             //var userService = serviceProvider.GetService<IUserService>();
             //var userById = userService.FindUserByID(4); //need instance of context in UserSErvice
             
+        }
+
+        //Automapper configuration
+        private static void InitializeAutomapper()
+        {
+            //with ForumProfule
+            //This way if it is not Initalized in IserviceProvider
+            //Mapper.Initialize(cfg => cfg.AddProfile<ForumProfile>());
+
+                //Initial way
+            //Mapper.Initialize(cfg=> 
+            //{
+            //    cfg.CreateMap<Post, PostDetailsDto>()
+            //    .ForMember(
+            //        dto=>dto.ReplyCount,
+            //        dest=>dest.MapFrom(post=>post.Replies.Count));
+            //    cfg.CreateMap<Reply, ReplyDto>();
+            //});
         }
 
         private static IServiceProvider ConfigureService()
@@ -34,6 +59,10 @@ namespace Forum.App
             serviceCollection.AddTransient<ICategoryService, CategoryService>();
             serviceCollection.AddTransient<IPostService, PostService>();
             serviceCollection.AddTransient<IReplyService, ReplyService>();
+
+            //Initialize Automapper when DI is needed
+            //From NUget - install-package Automapper.Extensions.Microsoft.DependencyInjection
+            serviceCollection.AddAutoMapper(cfg=>cfg.AddProfile<ForumProfile>());
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 

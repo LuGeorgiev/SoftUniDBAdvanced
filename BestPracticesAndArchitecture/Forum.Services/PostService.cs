@@ -3,8 +3,10 @@ using Forum.Models;
 using Forum.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
+using AutoMapper.QueryableExtensions;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 
 namespace Forum.Services
 {
@@ -16,19 +18,24 @@ namespace Forum.Services
             this.context = context;
         }
 
-        public IEnumerable<Post> All()
+        public IQueryable<TModel> All<TModel>()
         {
+            // with IEnumerable works without Automapper
+            //var posts = context.Posts
+            //    .Include(p => p.Author)
+            //    .Include(p => p.Category)
+            //    .Include(p => p.Replies)
+            //        .ThenInclude(r => r.Author)
+            //    .ToArray();
+
             var posts = context.Posts
-                .Include(p=>p.Author)
-                .Include(p=>p.Category)
-                .Include(p=>p.Replies)
-                    .ThenInclude(r=>r.Author)
-                .ToArray();
+                .ProjectTo<TModel>();
+                
 
             return posts;
         }
 
-        public Post Create( string title, string content, int categoryId, int authorId)
+        public TModel Create<TModel>( string title, string content, int categoryId, int authorId)
         {
             var post = new Post()
             {
@@ -41,7 +48,10 @@ namespace Forum.Services
             context.Posts.Add(post);
             context.SaveChanges();
 
-            return post;
+            //return post;
+
+            var postDto = Mapper.Map<TModel>(post);
+            return postDto;
         }
 
         public void Delete(int postId)
@@ -49,14 +59,22 @@ namespace Forum.Services
             throw new NotImplementedException();
         }
 
-        public Post FindById(int postId)
+        public TModel FindById<TModel>(int postId)
         {
-            var post = context
-                .Posts
-                .Include(p=>p.Replies)
-                    .ThenInclude(p=>p.Author)
-                .SingleOrDefault(p=>p.Id==postId);
+            //var post = context
+            //    .Posts
+            //    .Include(p=>p.Author) 
+            //    .Include(p=>p.Replies)
+            //        .ThenInclude(p=>p.Author)
+            //    .SingleOrDefault(p=>p.Id==postId);
 
+
+            var post = context
+                .Posts  
+                .Where(p => p.Id == postId)
+                .ProjectTo<TModel>()
+                .SingleOrDefault();            
+            
             return post;
         }
     }

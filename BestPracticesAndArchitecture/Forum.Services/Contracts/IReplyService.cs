@@ -4,7 +4,13 @@ namespace Forum.Services.Contracts
 {
     public interface IReplyService 
     {
-        Reply Create(string replyText,int postId, int authorId);
+        //Reply Create(string replyText,int postId, int authorId);
+
+        //void Delete(int replyId);
+
+        //Automapper implementation
+
+        TModel Create<TModel>(string replyText, int postId, int authorId);
 
         void Delete(int replyId);
     }
