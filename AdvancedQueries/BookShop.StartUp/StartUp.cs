@@ -9,6 +9,7 @@ namespace BookShop
     using System.Text;
     using Microsoft.EntityFrameworkCore;
     using System.Globalization;
+    using System.Text.RegularExpressions;
 
     public class StartUp
     {
@@ -72,9 +73,92 @@ namespace BookShop
                 //Console.WriteLine(copiesByAuthor);
 
                 //P12.	Profit by Category
-                string profitByCateory = GetTotalProfitByCategory(db);
-                Console.WriteLine(profitByCateory);
+                //string profitByCateory = GetTotalProfitByCategory(db);
+                //Console.WriteLine(profitByCateory);
+
+                //P13.Most Recent Books
+                //string mostRecentBooks = GetMostRecentBooks(db);
+                //Console.WriteLine(mostRecentBooks);
+
+                //P14.Increase Prices
+                //IncreasePrices(db);
+
+                //P15.	Remove Books
+
+                int removedBooks = RemoveBooks(db);
+                Console.WriteLine(removedBooks+" books were deleted");
             }
+        }
+
+        private static int RemoveBooks(BookShopContext db)
+        {
+            //Mine Approach
+            //int countRemoved = 0;
+            //foreach (var book in db.Books)
+            //{
+            //    if (book.Copies<4200)
+            //    {
+            //        db.Books.Remove(book);
+            //        countRemoved++;
+            //    }
+            //}
+            //db.SaveChanges();
+            //return countRemoved;
+
+            //Bojo approach
+            var books = db.Books.Where(b => b.Copies < 4200);
+            int result = books.Count();
+
+            db.Books.RemoveRange(books);
+            db.SaveChanges();
+
+            return result;
+        }
+
+        private static void IncreasePrices(BookShopContext db)
+        {
+            DateTime releaseBefore = new DateTime(2010, 1, 1);
+            
+            foreach (var book in db.Books)
+            {
+                if (book.ReleaseDate< releaseBefore)
+                {
+                    book.Price += 5m;
+                }
+            }
+            db.SaveChanges();            
+        }
+
+        private static string GetMostRecentBooks(BookShopContext db)
+        {
+            var mostRecentBooksByCategory = db.Categories
+                .OrderBy(c=>c.Name)
+                .Select(c=>new
+                {
+                    CatName = c.Name,
+                    Books = c.CategoryBooks
+                        .OrderByDescending(b=>b.Book.ReleaseDate)
+                        .Take(3)
+                        .Select(b=> new
+                        {
+                            Title = b.Book.Title,
+                            Year = b.Book.ReleaseDate.Value.Year
+                        }).ToList()
+                })                
+                .ToList();
+
+            var sb = new StringBuilder();
+            foreach (var category in mostRecentBooksByCategory)
+            {
+                sb.AppendLine($"--{category.CatName}");
+                foreach (var book in category.Books)
+                {
+                    sb.AppendLine($"{book.Title} ({book.Year})");
+                }
+
+            }
+
+            return sb.ToString().TrimEnd();
         }
 
         public static string GetTotalProfitByCategory(BookShopContext db)
@@ -85,55 +169,65 @@ namespace BookShop
                 .Select(x => new
                 {
                     x.Name,
-                    BooksByCat = x.CategoryBooks
-                    .Select(b => new
-                    {
-                        TotalProfPerBook = b.Book.Copies * b.Book.Price,
-                        b.BookId
-
-                    })
-                })
-                .OrderBy(x => x.BooksByCat.Sum(y => y.TotalProfPerBook))
-                .ToList();
-                
+                    CategoryProfit = x.CategoryBooks
+                    .Select(b=>b.Book.Copies*b.Book.Price)
+                    .Sum()
+                })  
+                .OrderByDescending(x=>x.CategoryProfit)
+                .ThenBy(x=>x.Name)
+                .ToList();               
 
 
-            foreach (var item in categories)
+            foreach (var category in categories)
             {
-                sb.AppendLine($"{item.Name} $");
-                foreach (var book in item.BooksByCat)
-                {
-                    sb.AppendLine($"--{book.TotalProfPerBook}");
-                }
-            }
-           
+                sb.AppendLine($"{category.Name} ${category.CategoryProfit:F2}");
+            }        
 
             return sb.ToString().TrimEnd();
         }
 
         public static string CountCopiesByAuthor(BookShopContext db)
         {
-            var sb = new StringBuilder();
+            //Mine approach
+            //var sb = new StringBuilder();
+            //var copiesByAuthor = db.Authors
+            //    .Select(a => new
+            //    {
+            //        Name = a.FirstName + " " + a.LastName,
+            //        Books = a.Books
+            //            .Select(b => new
+            //            {
+            //                b.Copies
+            //            }),
+            //        Copies = a.Books.Sum(x => x.Copies)
+            //    })
+            //    .OrderByDescending(z=>z.Copies)
+            //    .ToList();
 
-            var copiesByAuthor = db.Authors
+            //foreach (var author in copiesByAuthor)
+            //{
+            //    sb.AppendLine($"{author.Name} - {author.Copies}");
+            //}
+            //return sb.ToString().TrimEnd();
+
+            //Bojo approach
+
+            var sb = new StringBuilder();
+            var copiesbyAuthor = db.Authors
                 .Select(a => new
                 {
-                    Name = a.FirstName + " " + a.LastName,
-                    Books = a.Books
-                        .Select(b => new
-                        {
-                            b.Copies
-                        }),
-                    Copies = a.Books.Sum(x => x.Copies)
+                    Name = a.FirstName + " " + a.LastName,                    
+                    Copies = a.Books
+                    .Select(b=>b.Copies)
+                    .Sum()
                 })
-                .OrderByDescending(z=>z.Copies)
+                .OrderByDescending(z => z.Copies)
                 .ToList();
 
-            foreach (var author in copiesByAuthor)
+            foreach (var author in copiesbyAuthor)
             {
                 sb.AppendLine($"{author.Name} - {author.Copies}");
             }
-
             return sb.ToString().TrimEnd();
         }
 
@@ -148,31 +242,43 @@ namespace BookShop
 
         public static string GetBooksByAuthor(BookShopContext db, string lastNameStart)
         {
-            var sb = new StringBuilder();
+            //Mine approach
+            //            var sb = new StringBuilder();
+            //            var booksByAuthor = db.Authors
+            //                .Where(a => a.LastName.StartsWith(lastNameStart))
+            //                .Select(a => new
+            //                {
+            //                    Name = a.FirstName + " " + a.LastName,
+            //                    Books = a.Books
+            //                        .Select(b => new
+            //                        {
+            //                            b.Title,
+            //                            b.BookId
+            //                        })
+            //                        .OrderBy(b => b.BookId)
+            //                })
+            //                .ToList();
+            //            foreach (var author in booksByAuthor)
+            //            {
+            //                foreach (var book in author.Books)
+            //                {
+            //                    sb.AppendLine($"{book.Title} ({author.Name})");
+            //;               }
+            //            }
+            //            return sb.ToString().TrimEnd();
 
-            var booksByAuthor = db.Authors
-                .Where(a => a.LastName.StartsWith(lastNameStart))
-                .Select(a => new
-                {
-                    Name = a.FirstName + " " + a.LastName,
-                    Books = a.Books
-                        .Select(b => new
-                        {
-                            b.Title,
-                            b.BookId
-                        })
-                        .OrderBy(b => b.BookId)
-                })
-                .ToList();
+            //Bojo Danchev approach
+            string pattern = $"^{lastNameStart.ToLower()}.*$";
 
-            foreach (var author in booksByAuthor)
-            {
-                foreach (var book in author.Books)
-                {
-                    sb.AppendLine($"{book.Title} ({author.Name})");
-;               }
-            }
-            return sb.ToString().TrimEnd();
+            string[] books = db.Books
+                .Where(b => Regex.Match(b.Author.LastName.ToLower(), pattern).Success)
+                .OrderBy(b=>b.BookId)
+                .Select(b=>$"{b.Title} ({b.Author.FirstName} {b.Author.LastName})")
+                .ToArray();
+
+            string result = String.Join(Environment.NewLine, books);
+
+            return result;
         }
 
         public static string GetBookTitlesContaining(BookShopContext db, string containing)

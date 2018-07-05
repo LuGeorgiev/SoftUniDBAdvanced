@@ -79,7 +79,7 @@ namespace P06_RemoveVillain
             using (SqlCommand command = new SqlCommand(villianInfo,connection,transaction))
             {
                 command.Parameters.AddWithValue("@Id" , infoVillainId);
-                command.Transaction =
+               
                 if (command.ExecuteScalar() == null)
                 {
                     return 0;

@@ -19,7 +19,7 @@ namespace P01_StudentSystem.Data
 
         public DbSet<Course> Courses { get; set; }
 
-        public DbSet<HomeworkSubmission> HomeworkSubmissions { get; set; }
+        public DbSet<Homework> HomeworkSubmissions { get; set; }
 
         public DbSet<StudentCourse> StudentsCourses { get; set; }
 
@@ -39,9 +39,9 @@ namespace P01_StudentSystem.Data
 
             builder.ApplyConfiguration(new CourseConfiguration());
 
-            builder.ApplyConfiguration(new HomeworkSubmissionConfiguration());
+            builder.ApplyConfiguration(new HomeworkConfiguration());
 
-            builder.ApplyConfiguration(new StudentsCoursesConfiguration());
+            builder.ApplyConfiguration(new StudentsCourseConfiguration());
 
             builder.ApplyConfiguration(new ResourceConfiguration());
         }

@@ -10,7 +10,7 @@ namespace P03_FootballBetting
         {
             using (var db = new FootballBettingContext())
             {
-                db.Database.EnsureDeleted();
+                db.Database.EnsureCreated();
             }
         }
     }

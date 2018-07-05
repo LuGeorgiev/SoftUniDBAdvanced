@@ -8,7 +8,7 @@ namespace Demo2SoftUni.Data.Models
         public Employee()
         {
             Departments = new HashSet<Department>();
-            EmployeesProjects = new HashSet<EmployeeProjects>();
+            EmployeesProjects = new HashSet<EmployeeProject>();
             InverseManager = new HashSet<Employee>();
         }
 
@@ -27,7 +27,7 @@ namespace Demo2SoftUni.Data.Models
         public Department Department { get; set; }
         public Employee Manager { get; set; }
         public ICollection<Department> Departments { get; set; }
-        public ICollection<EmployeeProjects> EmployeesProjects { get; set; }
+        public ICollection<EmployeeProject> EmployeesProjects { get; set; }
         public ICollection<Employee> InverseManager { get; set; }
     }
 }

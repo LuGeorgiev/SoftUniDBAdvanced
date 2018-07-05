@@ -15,8 +15,7 @@ namespace P01_StudentSystem.Data.Models.Configurations
                 .IsUnicode();
 
             builder.Property(s => s.PhoneNumber)
-                .IsFixedLength(true)
-                .HasMaxLength(10)
+                .HasColumnType("NCHAR(10)")                
                 .IsRequired(false)
                 .IsUnicode(false);
 

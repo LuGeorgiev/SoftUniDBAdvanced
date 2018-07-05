@@ -4,7 +4,7 @@ using System;
 
 namespace P01_StudentSystem.Data.Models
 {
-    public class HomeworkSubmission
+    public class Homework
     {
         public int HomeworkId { get; set; }
 

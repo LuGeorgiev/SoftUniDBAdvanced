@@ -7,6 +7,11 @@ namespace P01_StudentSystem.Data.Models
 {
     public class Student
     {
+        public Student()
+        {
+            HomeworkSubmissions = new List<Homework>();
+            CourseEnrollments = new List<StudentCourse>();
+        }
         public int StudentId { get; set; }
 
         public string Name { get; set; }
@@ -17,9 +22,9 @@ namespace P01_StudentSystem.Data.Models
 
         public DateTime RegisterdOn { get; set; }
 
-        public ICollection<HomeworkSubmission> HomeworkSubmissions { get; set; } = new List<HomeworkSubmission>();
+        public ICollection<Homework> HomeworkSubmissions { get; set; } 
 
-        public ICollection<StudentCourse> StudentCourses { get; set; } = new List<StudentCourse>();
+        public ICollection<StudentCourse> CourseEnrollments { get; set; } 
 
     }
 }

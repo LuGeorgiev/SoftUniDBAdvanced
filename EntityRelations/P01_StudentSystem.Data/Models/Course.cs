@@ -5,6 +5,12 @@ namespace P01_StudentSystem.Data.Models
 {
     public class Course
     {
+        public Course()
+        {
+            StudentsEnrolled = new List<StudentCourse>();
+            HomeworkSubmissions = new List<Homework>();
+            Resources  = new List<Resource>();
+        }
         public int CourseId { get; set; }
 
         public string Name { get; set; }
@@ -17,10 +23,10 @@ namespace P01_StudentSystem.Data.Models
 
         public DateTime EndDate { get; set; }
 
-        public ICollection<StudentCourse> StudentsCourse { get; set; } = new List<StudentCourse>();
+        public ICollection<StudentCourse> StudentsEnrolled { get; set; }
 
-        public ICollection<HomeworkSubmission> HomeworksSubmission { get; set; } = new List<HomeworkSubmission>();
+        public ICollection<Homework> HomeworkSubmissions { get; set; } 
 
-        public ICollection<Resource> Resources { get; set; } = new List<Resource>();
+        public ICollection<Resource> Resources { get; set; } 
     }
 }

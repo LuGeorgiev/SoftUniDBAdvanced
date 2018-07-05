@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace P01_StudentSystem.Data.Models.Configurations
 {
-    public class HomeworkSubmissionConfiguration : IEntityTypeConfiguration<HomeworkSubmission>
+    public class HomeworkConfiguration : IEntityTypeConfiguration<Homework>
     {
-        public void Configure(EntityTypeBuilder<HomeworkSubmission> builder)
+        public void Configure(EntityTypeBuilder<Homework> builder)
         {
             builder.HasKey(hs => hs.HomeworkId);
 
@@ -21,7 +21,7 @@ namespace P01_StudentSystem.Data.Models.Configurations
                 .HasForeignKey(hs => hs.StudentId);
 
             builder.HasOne(hs => hs.Course)
-                .WithMany(c => c.HomeworksSubmission)
+                .WithMany(c => c.HomeworkSubmissions)
                 .HasForeignKey(hs=>hs.CourseId);                
         }
     }

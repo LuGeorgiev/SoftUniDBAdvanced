@@ -20,7 +20,7 @@ namespace Demo2SoftUni.Data
         public DbSet<DeletedEmployee> DeletedEmployee { get; set; }
         public DbSet<Department> Department { get; set; }
         public DbSet<Employee> Employee { get; set; }
-        public DbSet<EmployeeProjects> EmployeeProjects { get; set; }
+        public DbSet<EmployeeProject> EmployeeProjects { get; set; }
         public DbSet<Project> Project { get; set; }
         public DbSet<Town> Town { get; set; }
 
@@ -160,7 +160,7 @@ namespace Demo2SoftUni.Data
                     .HasConstraintName("FK_Employees_Employees");
             });
 
-            modelBuilder.Entity<EmployeeProjects>(entity =>
+            modelBuilder.Entity<EmployeeProject>(entity =>
             {
                 entity.HasKey(e => new { e.EmployeeId, e.ProjectId });
 
@@ -180,6 +180,8 @@ namespace Demo2SoftUni.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_EmployeesProjects_Projects");
             });
+
+            modelBuilder.Entity<EmployeeProject>().ToTable("NewNumber"); //new table name
 
             modelBuilder.Entity<Project>(entity =>
             {

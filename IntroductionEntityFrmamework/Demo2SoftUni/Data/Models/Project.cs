@@ -7,7 +7,7 @@ namespace Demo2SoftUni.Data.Models
     {
         public Project()
         {
-            EmployeesProjects = new HashSet<EmployeeProjects>();
+            EmployeesProjects = new HashSet<EmployeeProject>();
         }
 
         public int ProjectId { get; set; }
@@ -16,6 +16,6 @@ namespace Demo2SoftUni.Data.Models
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
 
-        public ICollection<EmployeeProjects> EmployeesProjects { get; set; }
+        public ICollection<EmployeeProject> EmployeesProjects { get; set; }
     }
 }

@@ -8,5 +8,4 @@ Microsoft.EntityFrameworkCore.SqlServer
 Microsoft.EntityFrameworkCore.SqlServer.Design
 Microsoft.EntityFrameworkCore.Tools
 
-PM> Scaffold-DbContext  -Connection "Server=(localdb)\MSSQLLocalDB;Database=SoftUni;Integrated Security=True" 
--Provider Microsoft.EntityFrameworkCore.SqlServer -OutputDir Data/Models -Context 
+PM> Scaffold-DbContext  -Connection "Server=(localdb)\MSSQLLocalDB;Database=SoftUni;Integrated Security=True" -Provider Microsoft.EntityFrameworkCore.SqlServer -OutputDir Data/Models 

@@ -5,6 +5,7 @@ using P02_DatabaseFirst.Data.Models;
 using P02_DatabaseFirst.Utilities;
 using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -21,6 +22,7 @@ namespace P02_DatabaseFirst
                 // 3. Employees Full Information
                 //string employees = PrintAllEmployee(db);
                 //writer.WiteLine(employees);
+
 
                 //4.	Employees with Salary Over 50 000
                 //int salary = 50000;
@@ -59,10 +61,10 @@ namespace P02_DatabaseFirst
                 //PrintEmployeeStartWith(db, "Sa");
 
                 //14.	Delete Project by Id
-                //DeletProjectById(db, 2);
+                DeletProjectById(db, 2);
 
                 //15.	Remove Towns
-                RemoveTown(db, "Seattle");
+                //RemoveTown(db, "Seattle");
             }
         }
 
@@ -123,7 +125,7 @@ namespace P02_DatabaseFirst
             {
                 emp.Salary *= 1.12m;
             }
-            db.SaveChanges();
+            db.SaveChanges();  // Skip this line if changes do not have to be submitted to DB
 
             foreach (var empolyee in happyEmployees)
             {
@@ -135,8 +137,8 @@ namespace P02_DatabaseFirst
             //var lastProjects = 
                 db.Projects
                 .OrderByDescending(x => x.StartDate)
-                .ThenBy(x => x.Name)
                 .Take(10)
+                .OrderBy(x => x.Name)
                 .Select(x => new
                 {
                     x.Name,
@@ -168,15 +170,19 @@ namespace P02_DatabaseFirst
                         })
                 });
 
-            foreach (var dep in departments)
+            using (var sw = new StreamWriter("../SoftUniData.txt"))
             {
-                Console.WriteLine($"{dep.DepName} - {dep.ManagerName}");
-                foreach (var emp in dep.Employees)
+                foreach (var dep in departments)
                 {
-                    Console.WriteLine($"{emp.EmployeeName} - {emp.EmployeJob}");
+                    sw.WriteLine($"{dep.DepName} - {dep.ManagerName}");
+                    foreach (var emp in dep.Employees)
+                    {
+                        sw.WriteLine($"{emp.EmployeeName} - {emp.EmployeJob}");
+                    }
+                    sw.WriteLine(new string('-', 10));
                 }
-                Console.WriteLine(new string('-',10));
             }
+            
         }
         private static void PrintEmployeeById(SoftUniContext db, int employeeId)
         {

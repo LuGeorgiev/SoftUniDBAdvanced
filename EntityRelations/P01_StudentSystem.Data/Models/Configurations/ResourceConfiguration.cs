@@ -20,6 +20,10 @@ namespace P01_StudentSystem.Data.Models.Configurations
                 .IsRequired()
                 .IsUnicode(false);
 
+            builder.Property(r => r.ResourceType)
+                .IsRequired();
+
+
             builder.HasOne(r => r.Course)
                 .WithMany(c => c.Resources)
                 .HasForeignKey(r => r.CourseId);

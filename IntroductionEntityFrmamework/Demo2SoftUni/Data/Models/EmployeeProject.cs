@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Demo2SoftUni.Data.Models
 {
-    public class EmployeeProjects
+    public class EmployeeProject
     {
         public int EmployeeId { get; set; }
         public int ProjectId { get; set; }
