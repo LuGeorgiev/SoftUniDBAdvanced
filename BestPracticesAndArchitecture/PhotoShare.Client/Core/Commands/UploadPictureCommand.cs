@@ -17,11 +17,27 @@
 
             using (var db = new PhotoShareContext())
             {
+                //P02.Extend Photo Share System refactoring
+                if (Session.User == null)
+                {
+                    throw new InvalidOperationException("Invalid credentials! Please, Login.");
+                }
+                var user = Session.User;
+
+
                 var album = db.Albums
                     .FirstOrDefault(x => x.Name == albumName);
                 if (album==null)
                 {
                     throw new ArgumentException($"Album {albumName} not found!");
+                }
+
+                //P02
+                var albumOwner = album.AlbumRoles
+                    .Where(x => x.Role.Equals(Role.Owner));
+                if (!albumOwner.Any(x=>x.User.Username==user.Username))
+                {
+                    throw new InvalidOperationException("Invalid credentials! ");
                 }
 
                 album.Pictures.Add(new Picture()

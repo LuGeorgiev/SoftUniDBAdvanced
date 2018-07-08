@@ -4,6 +4,7 @@
     using Data;
     using Utilities;
     using PhotoShare.Client.Core.Contracts;
+    using System;
 
     public class AddTagCommand:ICommand
     {
@@ -14,6 +15,12 @@
 
             using (PhotoShareContext context = new PhotoShareContext())
             {
+                //P02.Extend Photo Share System refactoring
+                if (Session.User == null)
+                {
+                    throw new InvalidOperationException("Invalid credentials! Please, Login.");
+                }
+                
                 context.Tags.Add(new Tag
                 {
                     Name = tag

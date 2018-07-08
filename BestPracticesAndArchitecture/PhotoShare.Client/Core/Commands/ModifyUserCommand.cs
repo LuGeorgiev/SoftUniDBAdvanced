@@ -20,14 +20,20 @@
             var newValue = data[3];
             using (var context = new PhotoShareContext())
             {
-                var user = context.Users
-                    .FirstOrDefault(u => u.Username == userName);
+                //P01 approach
+                //var user = context.Users
+                //    .FirstOrDefault(u => u.Username == userName);
+                //if (user==null)
+                //{
+                //    throw new ArgumentException($"User: {userName} was not found!");
+                //}
 
-
-                if (user==null)
+                //P02.Extend Photo Share System refactoring
+                if (Session.User==null)
                 {
-                    throw new ArgumentException($"User: {userName} was not found!");
+                    throw new InvalidOperationException("Invalid credentials! Please, Login.");
                 }
+                var user = Session.User;
 
                 string exceptionMsg = $"Value {newValue} is not valid!"+ Environment.NewLine;
                 if (property=="password")

@@ -16,6 +16,14 @@
 
             using (var db = new PhotoShareContext())
             {
+                //P02.Extend Photo Share System refactoring
+                if (Session.User == null)
+                {
+                    throw new InvalidOperationException("Invalid credentials!");
+                }
+                var user = Session.User;
+
+
                 var albumToAddTag = db.Albums
                     .FirstOrDefault(a => a.Name == albumTitle);
                 var tagToAdd = db.Tags
@@ -24,6 +32,14 @@
                 if (albumToAddTag==null||tagToAdd==null)
                 {
                     throw new ArgumentException($"Either tag or album do not exist!");
+                }
+
+                //P02
+                var albumOwner = albumToAddTag.AlbumRoles
+                    .Where(x => x.Role.Equals(Role.Owner));
+                if (!albumOwner.Any(x => x.User.Username == user.Username))
+                {
+                    throw new InvalidOperationException("Invalid credentials!");
                 }
 
                 var albumTag = new AlbumTag

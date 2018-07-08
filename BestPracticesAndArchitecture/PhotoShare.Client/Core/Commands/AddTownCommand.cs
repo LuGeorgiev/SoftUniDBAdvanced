@@ -17,6 +17,13 @@
 
             using (PhotoShareContext context = new PhotoShareContext())
             {
+                //P02.Extend Photo Share System refactoring
+                if (Session.User == null)
+                {
+                    throw new InvalidOperationException("Invalid credentials! Please, Login.");
+                }
+               
+
                 var townCheck = context.Towns
                     .AsNoTracking()  // only check and not 
                     .Where(t => t.Name == townName)

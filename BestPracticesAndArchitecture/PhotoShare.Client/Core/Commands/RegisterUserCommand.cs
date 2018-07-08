@@ -16,7 +16,10 @@
             string password = data[2];
             string repeatPassword = data[3];
             string email = data[4];
-            
+            if (Session.User!=null)
+            {
+                throw new InvalidOperationException("Invalid credentials!");
+            }
 
             if (password != repeatPassword)
             {

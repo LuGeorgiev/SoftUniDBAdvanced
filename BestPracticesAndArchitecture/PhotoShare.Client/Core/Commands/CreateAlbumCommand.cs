@@ -13,28 +13,36 @@
         
         public string Execute(string[] data)
         {
-            var username = data[1];
-            var albumTitle = data[2];
-            var color = data[3];
-            var tags = data.Skip(4);
+            //P02 refactoring - username is no longer needed
+            //var username = data[1];
+            var albumTitle = data[1];
+            var color = data[2];
+            var tags = data.Skip(3);
 
             using (var db=new PhotoShareContext())
             {
-                var user = db.Users
-                    .FirstOrDefault(u => u.Username == username);
+                //P02 Refactoring
+                //var user = db.Users
+                //    .FirstOrDefault(u => u.Username == username);
+                //if (user==null)
+                //{
+                //    throw new ArgumentException($"User {username} do not exists!");
+                //}
 
-                if (user==null)
+                //P02.Extend Photo Share System refactoring
+                if (Session.User == null)
                 {
-                    throw new ArgumentException($"User {username} do not exists!");
+                    throw new InvalidOperationException("Invalid credentials! Please, Login.");
                 }
+                var user = Session.User;
 
                 var albums = db.Users
-                    .Single(u => u.Username == username)
+                    .Single(u => u.Username == user.Username)
                     .AlbumRoles
                     .Select(a=>new { a.Album.Name});
                 if (albums.Any(a=>a.Name==albumTitle))
                 {
-                    throw new ArithmeticException($"User- {username} already has album - {albumTitle}");
+                    throw new ArithmeticException($"User- {user.Username} already has album - {albumTitle}");
                 }
 
                 var isColorValid = Enum.TryParse(color, true, out Color backgroundColor);

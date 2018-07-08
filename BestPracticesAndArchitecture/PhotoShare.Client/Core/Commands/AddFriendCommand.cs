@@ -12,19 +12,27 @@
         // AddFriend <username1> <username2>
         public string Execute(string[] data)
         {
-            var requesterUsername = data[1];
-            var addedFriendUsername = data[2];
+            //Refactored in P02
+            //var requesterUsername = data[1];
+            var addedFriendUsername = data[1];
 
             using (var context = new PhotoShareContext())
             {
-                var requestingUser = context.Users
-                    .Include(u => u.FriendsAdded)
-                    .ThenInclude(fa => fa.Friend)
-                    .FirstOrDefault(u => u.Username == requesterUsername);
-                if (requestingUser==null)
+                //var requestingUser = context.Users
+                //    .Include(u => u.FriendsAdded)
+                //    .ThenInclude(fa => fa.Friend)
+                //    .FirstOrDefault(u => u.Username == requesterUsername);
+                //if (requestingUser==null)
+                //{
+                //    throw new ArgumentException($"{requesterUsername} was not found");
+                //}
+
+                //P02.Extend Photo Share System refactoring
+                if (Session.User == null)
                 {
-                    throw new ArgumentException($"{requesterUsername} was not found");
+                    throw new InvalidOperationException("Invalid credentials! Please, Login.");
                 }
+                var requestingUser = Session.User;
 
                 var addedFriend = context.Users
                     .Include(u=>u.FriendsAdded)
@@ -43,11 +51,11 @@
                 }
                 else if (alreadyFriends && accepted)
                 {
-                    throw new InvalidOperationException($"{addedFriendUsername} is already frind with {requesterUsername}");
+                    throw new InvalidOperationException($"{addedFriendUsername} is already frind with {requestingUser.Username}");
                 }
                 else if (!alreadyFriends && accepted)
                 {
-                    throw new InvalidOperationException($"{requesterUsername} has already friend.. .. {addedFriendUsername}");
+                    throw new InvalidOperationException($"{requestingUser.Username} has already friend.. .. {addedFriendUsername}");
                 }
 
                 requestingUser.FriendsAdded.Add(
@@ -58,7 +66,7 @@
                     });
 
                 context.SaveChanges();
-                return $"Friend {addedFriendUsername} added to {requesterUsername}";
+                return $"Friend {addedFriendUsername} added to {requestingUser.Username}";
             }
         }
     }

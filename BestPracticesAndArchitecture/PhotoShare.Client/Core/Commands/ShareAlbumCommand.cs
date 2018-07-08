@@ -15,8 +15,8 @@
         public string Execute(string[] data)
         {
             var albumId = int.Parse(data[1]);
-            var username = data[2];
-            var permission = data[3];
+            //var username = data[2]; //P02 user in no longer needed from input
+            var permission = data[2];
 
             using (var db = new PhotoShareContext())
             {
@@ -27,15 +27,22 @@
                     throw new ArgumentException($"Album {albumId} not found!");
                 }
 
-                var user = db.Users
-                    .FirstOrDefault(u => u.Username == username);
-                if (user==null)
+                //P02 - refactor
+                //var user = db.Users
+                //    .FirstOrDefault(u => u.Username == username);
+                //if (user==null)
+                //{
+                //    throw new ArgumentException($"User {username} not found!");
+                //}
+                //P02.Extend Photo Share System refactoring
+                if (Session.User == null)
                 {
-                    throw new ArgumentException($"User {username} not found!");
+                    throw new InvalidOperationException("Invalid credentials! ");
                 }
+                var user = Session.User;
 
-                var isRolevalid = Enum.TryParse(typeof(Role), permission, true, out object role);
-                if (!isRolevalid)
+                var isRoleValid = Enum.TryParse(typeof(Role), permission, true, out object role);
+                if (!isRoleValid)
                 {
                     throw new ArgumentException("Permission must be either “Owner” or “Viewer”!");
                 }
@@ -47,7 +54,7 @@
                 });
                 db.SaveChanges();
 
-                return $"Username {username} added to album {album.Name} ({role.ToString()})";
+                return $"Username {user.Username} added to album {album.Name} ({role.ToString()})";
             }
         }
     }

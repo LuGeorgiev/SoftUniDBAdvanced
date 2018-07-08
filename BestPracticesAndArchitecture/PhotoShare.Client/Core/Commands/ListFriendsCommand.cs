@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PhotoShare.Client.Core.Contracts;
 using PhotoShare.Data;
+using PhotoShare.Models;
 using System;
 using System.Linq;
 using System.Text;
@@ -17,9 +18,18 @@ namespace PhotoShare.Client.Core.Commands
 
             using (var db = new PhotoShareContext())
             {
-                var usersFriendsToList = db.Users
-                    .Include(u=>u.FriendsAdded)                    
+                //P02 refactoring
+                User usersFriendsToList = null;
+                if (Session.User!=null)
+                {
+                    usersFriendsToList = Session.User;
+                }
+                else
+                {
+                    usersFriendsToList = db.Users
+                    .Include(u => u.FriendsAdded)
                     .FirstOrDefault(u => u.Username == username);
+                }
                     
                 if (usersFriendsToList==null)
                 {
