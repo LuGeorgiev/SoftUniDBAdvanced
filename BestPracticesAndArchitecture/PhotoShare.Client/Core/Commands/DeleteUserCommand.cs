@@ -4,11 +4,12 @@
     using System.Linq;
 
     using Data;
+    using PhotoShare.Client.Core.Contracts;
 
-    public class DeleteUser
+    public class DeleteUserCommand:ICommand
     {
         // DeleteUser <username>
-        public static string Execute(string[] data)
+        public string Execute(string[] data)
         {
             string username = data[1];
             using (PhotoShareContext context = new PhotoShareContext())

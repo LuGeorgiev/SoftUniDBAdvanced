@@ -3,11 +3,12 @@
     using Models;
     using Data;
     using Utilities;
+    using PhotoShare.Client.Core.Contracts;
 
-    public class AddTagCommand
+    public class AddTagCommand:ICommand
     {
         // AddTag <tag>
-        public static string Execute(string[] data)
+        public string Execute(string[] data)
         {
             string tag = data[1].ValidateOrTransform();
 

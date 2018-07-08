@@ -5,11 +5,12 @@
     using System.Linq;
     using Microsoft.EntityFrameworkCore;
     using System;
+    using PhotoShare.Client.Core.Contracts;
 
-    public class AddTownCommand
+    public class AddTownCommand:ICommand
     {
         // AddTown <townName> <countryName>
-        public static string Execute(string[] data)
+        public string Execute(string[] data)
         {
             string townName = data[1];
             string country = data[2];

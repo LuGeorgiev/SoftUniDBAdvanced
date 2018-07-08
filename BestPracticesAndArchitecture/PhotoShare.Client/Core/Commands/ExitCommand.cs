@@ -1,10 +1,11 @@
 ﻿namespace PhotoShare.Client.Core.Commands
 {
+    using PhotoShare.Client.Core.Contracts;
     using System;
 
-    public class ExitCommand
+    public class ExitCommand : ICommand
     {
-        public static string Execute()
+        public string Execute(string[] data)
         {
             Environment.Exit(0);
             return "Bye-bye!";

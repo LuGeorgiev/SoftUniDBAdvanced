@@ -5,11 +5,12 @@
     using Models;
     using Data;
     using System.Linq;
+    using PhotoShare.Client.Core.Contracts;
 
-    public class RegisterUserCommand
+    public class RegisterUserCommand : ICommand
     {
         // RegisterUser <username> <password> <repeat-password> <email>
-        public static string Execute(string[] data)
+        public string Execute(string[] data)
         {
             string username = data[1];
             string password = data[2];

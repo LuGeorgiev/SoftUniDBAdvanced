@@ -1,10 +1,11 @@
 ﻿namespace PhotoShare.Client.Core.Commands
 {
+    using PhotoShare.Client.Core.Contracts;
     using PhotoShare.Data;
     using System;
     using System.Linq;
 
-    public class ModifyUserCommand
+    public class ModifyUserCommand:ICommand
     {
         // ModifyUser <username> <property> <new value>
         // For example:
@@ -12,7 +13,7 @@
         // ModifyUser <username> BornTown <newBornTownName>
         // ModifyUser <username> CurrentTown <newCurrentTownName>
         // !!! Cannot change username
-        public static string Execute(string[] data)
+        public string Execute(string[] data)
         {
             var userName = data[1];
             var property = data[2].ToLower();

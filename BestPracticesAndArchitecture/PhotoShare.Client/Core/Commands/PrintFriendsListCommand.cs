@@ -1,8 +1,9 @@
 ﻿namespace PhotoShare.Client.Core.Commands
 {
+    using PhotoShare.Client.Core.Contracts;
     using System;
 
-    public class PrintFriendsListCommand 
+    public class PrintFriendsListCommand : ICommand
     {
         // PrintFriendsList <username>
         public string Execute(string[] data)

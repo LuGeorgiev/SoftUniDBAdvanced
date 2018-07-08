@@ -1,15 +1,16 @@
 ﻿namespace PhotoShare.Client.Core.Commands
 {
     using Microsoft.EntityFrameworkCore;
+    using PhotoShare.Client.Core.Contracts;
     using PhotoShare.Data;
     using PhotoShare.Models;
     using System;
     using System.Linq;
 
-    public class AddFriendCommand
+    public class AddFriendCommand : ICommand
     {
         // AddFriend <username1> <username2>
-        public static string Execute(string[] data)
+        public string Execute(string[] data)
         {
             var requesterUsername = data[1];
             var addedFriendUsername = data[2];
@@ -57,7 +58,7 @@
                     });
 
                 context.SaveChanges();
-                return $"Frien {addedFriendUsername} added to {requesterUsername}";
+                return $"Friend {addedFriendUsername} added to {requesterUsername}";
             }
         }
     }
