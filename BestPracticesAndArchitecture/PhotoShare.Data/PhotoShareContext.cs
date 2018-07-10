@@ -1,7 +1,6 @@
 namespace PhotoShare.Data
 {
-    using Microsoft.EntityFrameworkCore;
-
+    using Microsoft.EntityFrameworkCore;   
     using Models;
     using Configuration;
 
@@ -49,7 +48,7 @@ namespace PhotoShare.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(ServerConfig.ConnectionString);
+            optionsBuilder.UseSqlServer(ServerConfig.ConnectionString);            
         }
     }
 }

@@ -31,7 +31,7 @@
                 //P02.Extend Photo Share System refactoring
                 if (Session.User==null)
                 {
-                    throw new InvalidOperationException("Invalid credentials! Please, Login.");
+                    throw new InvalidOperationException("Invalid credentials!");
                 }
                 var user = Session.User;
 
