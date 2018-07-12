@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using P01_StudentSystem.Data.Models;
-using P01_StudentSystem.Data.Models.Configurations;
+using P01_StudentSystem.Data.Configurations;
 
 namespace P01_StudentSystem.Data
 {
@@ -21,7 +21,7 @@ namespace P01_StudentSystem.Data
 
         public DbSet<Homework> HomeworkSubmissions { get; set; }
 
-        public DbSet<StudentCourse> StudentsCourses { get; set; }
+        public DbSet<StudentCourse> StudentCourses { get; set; }
 
         public DbSet<Resource> Resources { get; set; }
 

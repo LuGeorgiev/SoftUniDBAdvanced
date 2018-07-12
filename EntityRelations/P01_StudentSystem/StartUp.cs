@@ -3,12 +3,13 @@
 
 namespace P01_StudentSystem
 {
-    class StartUp
+    public class StartUp
     {
-        static void Main()
+        public static void Main()
         {
             using (var context = new StudentSystemContext())
             {
+                context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
             }
         }

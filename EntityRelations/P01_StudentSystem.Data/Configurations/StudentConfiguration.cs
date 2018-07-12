@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using P01_StudentSystem.Data.Models;
 
-namespace P01_StudentSystem.Data.Models.Configurations
+namespace P01_StudentSystem.Data.Configurations
 {
     public class StudentConfiguration : IEntityTypeConfiguration<Student>
     {
@@ -19,10 +20,10 @@ namespace P01_StudentSystem.Data.Models.Configurations
                 .IsRequired(false)
                 .IsUnicode(false);
 
-            builder.Property(s => s.RegisterdOn)
+            builder.Property(s => s.RegisteredOn)
                 .IsRequired();
 
-            builder.Property(s => s.BirthDate)
+            builder.Property(s => s.Birthday)
                 .IsRequired(false);
         }
     }

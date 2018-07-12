@@ -3,19 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cars.App", "Cars.App\Cars.App.csproj", "{70FF9CAD-DE27-4234-9CB3-62F6B20F5515}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cars.App", "Cars.App\Cars.App.csproj", "{70FF9CAD-DE27-4234-9CB3-62F6B20F5515}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cars.Data", "Cars.Data\Cars.Data.csproj", "{191F3BE9-2A4C-4848-9869-60695D483E79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cars.Data", "Cars.Data\Cars.Data.csproj", "{191F3BE9-2A4C-4848-9869-60695D483E79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P01_StudentSystem", "P01_StudentSystem\P01_StudentSystem.csproj", "{528E336B-FA48-4914-8ED2-B337B3DD7119}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P01_StudentSystem", "P01_StudentSystem\P01_StudentSystem.csproj", "{528E336B-FA48-4914-8ED2-B337B3DD7119}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P01_StudentSystem.Data", "P01_StudentSystem.Data\P01_StudentSystem.Data.csproj", "{FC61422A-7479-4527-B7C2-E11ACA03ABB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P01_StudentSystem.Data", "P01_StudentSystem.Data\P01_StudentSystem.Data.csproj", "{FC61422A-7479-4527-B7C2-E11ACA03ABB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P03_FootballBetting", "P03_FootballBetting\P03_FootballBetting.csproj", "{15D8DD56-CDE7-472B-9A5C-799B260D7250}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P03_FootballBetting", "P03_FootballBetting\P03_FootballBetting.csproj", "{15D8DD56-CDE7-472B-9A5C-799B260D7250}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P03_FootballBetting.Data", "P03_FootballBetting.Data\P03_FootballBetting.Data.csproj", "{25896F23-3975-43CE-953E-31EF0C2F9D46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P03_FootballBetting.Data", "P03_FootballBetting.Data\P03_FootballBetting.Data.csproj", "{25896F23-3975-43CE-953E-31EF0C2F9D46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P03_FootballBetting.Data.Models", "P03_FootballBetting.Data.Models\P03_FootballBetting.Data.Models.csproj", "{4E313BC1-6BB6-47F1-BDC7-4D791ECDB026}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P03_FootballBetting.Data.Models", "P03_FootballBetting.Data.Models\P03_FootballBetting.Data.Models.csproj", "{4E313BC1-6BB6-47F1-BDC7-4D791ECDB026}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P01_StudentSystem.Data.Models", "P01_StudentSystem.Data.Models\P01_StudentSystem.Data.Models.csproj", "{EC0D3535-886E-41C8-B37F-BAD81CD3A8F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{4E313BC1-6BB6-47F1-BDC7-4D791ECDB026}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E313BC1-6BB6-47F1-BDC7-4D791ECDB026}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E313BC1-6BB6-47F1-BDC7-4D791ECDB026}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC0D3535-886E-41C8-B37F-BAD81CD3A8F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC0D3535-886E-41C8-B37F-BAD81CD3A8F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC0D3535-886E-41C8-B37F-BAD81CD3A8F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC0D3535-886E-41C8-B37F-BAD81CD3A8F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
