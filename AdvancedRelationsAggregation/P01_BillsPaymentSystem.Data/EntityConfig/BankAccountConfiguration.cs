@@ -10,7 +10,7 @@ namespace P01_BillsPaymentSystem.Data.EntityConfig
         {
             builder.HasKey(ba => ba.BankAccountId);
 
-            builder.Ignore(ba => ba.PaymentMethodId);
+            //builder.Ignore(ba => ba.PaymentMethodId);
 
             builder.Property(ba => ba.Balance)
                 .IsRequired();

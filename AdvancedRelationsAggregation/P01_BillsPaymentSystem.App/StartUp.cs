@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace P01_BillsPaymentSystem.App
 {
-    class StartUp
+    public class StartUp
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             //P02 Seed
             //using (var db = new BillsPaymentSystemContext())
@@ -19,13 +19,16 @@ namespace P01_BillsPaymentSystem.App
             //    Seed(db);
             //}
 
+            Console.WriteLine("Please, insert user Id");
             var userId =int.Parse(Console.ReadLine());
 
             //P03 User Details
-            ShowUserAccountsBalance(userId);
+            //ShowUserAccountsBalance(userId);
 
-            var amount = decimal.Parse(Console.ReadLine());
+
             //P04 PayBills
+            Console.WriteLine("Please, enter amount needed to pay bills:");
+            var amount = decimal.Parse(Console.ReadLine());
             PayBills(userId, amount);
             ShowUserAccountsBalance(userId);
 
@@ -120,7 +123,13 @@ namespace P01_BillsPaymentSystem.App
                        .Where(pm => pm.Type == PaymentMethodType.BankAccount)
                        .Select(pm => pm.BankAccount)
 
-                    }).FirstOrDefault();
+                    })
+                    .FirstOrDefault();
+                if (user==null)
+                {
+                    throw new ArgumentException($"User wit Id {userId} was not found!");
+                }
+
                 Console.WriteLine($"User: {user.Name}");
                 if (user.BankAccounts.Any()) //if at lease one exist
                 {
@@ -158,22 +167,23 @@ namespace P01_BillsPaymentSystem.App
                     Email = "Pesho@abv.bg",
                     Password = "IamPesho"
                 };
+                               
 
                 var credCards = new CreditCard[]
                 {
-                new CreditCard()
-                {
-                    ExpirationDate=new DateTime(2018,6,28),
-                    Limit =1000m,
-                    MoneyOwned = 5m
-                },
+                    new CreditCard()
+                    {
+                        ExpirationDate=new DateTime(2018,6,28),
+                        Limit =1000m,
+                        MoneyOwned = 5m
+                    },
 
-                new CreditCard()
-                {
-                    ExpirationDate=new DateTime(2012,4,12),
-                    Limit =400m,
-                    MoneyOwned = 200m
-                }
+                    new CreditCard()
+                    {
+                        ExpirationDate=new DateTime(2012,4,12),
+                        Limit =400m,
+                        MoneyOwned = 200m
+                    }
                 };
 
                 var bankAccount = new BankAccount()

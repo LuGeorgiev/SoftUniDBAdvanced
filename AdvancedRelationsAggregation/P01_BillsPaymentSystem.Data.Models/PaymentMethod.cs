@@ -1,4 +1,6 @@
-﻿namespace P01_BillsPaymentSystem.Data.Models
+﻿using P01_BillsPaymentSystem.Data.Models.ValidationAttributes;
+
+namespace P01_BillsPaymentSystem.Data.Models
 {
     public class PaymentMethod
     {
@@ -8,6 +10,7 @@
         public int UserId { get; set; }
         public User User { get; set; }
 
+        [XorAttributte(nameof(CreditCardId))]
         public int? BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; }
 

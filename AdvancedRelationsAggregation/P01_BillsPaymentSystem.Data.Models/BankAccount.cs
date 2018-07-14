@@ -13,10 +13,9 @@ namespace P01_BillsPaymentSystem.Data.Models
 
         public string SwiftCode { get; set; }
 
-        public int PaymentMethodId { get; set; }
-        public PaymentMethod PaymentMethod { get; set; }
-
-        //public ICollection<PaymentMethod> PaymentMethods { get; set; } = new HashSet<PaymentMethod>();
+        public int? PaymenMethodId { get; set; }
+        public PaymentMethod PaymentMethod{ get; set; } 
+        
 
         public void Withdraw(decimal amount)
         {

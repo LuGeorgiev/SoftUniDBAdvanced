@@ -12,8 +12,8 @@ namespace P01_BillsPaymentSystem.Data.Models
         public decimal Limit { get; set; }
         public decimal MoneyOwned { get; set; }
 
-        public int PaymentMethodId { get; set; }
-        public PaymentMethod PaymentMethod { get; set; }
+        public int? PaymentMethodId { get; set; }
+        public PaymentMethod PaymentMethod { get; set; } 
 
         public decimal LimitLeft
         {
@@ -21,9 +21,7 @@ namespace P01_BillsPaymentSystem.Data.Models
             {
                return this.Limit - this.MoneyOwned;
             }
-        }
-
-        //    public ICollection<PaymentMethod> PaymentMethods { get; set; } = new HashSet<PaymentMethod>();
+        }        
 
         public void Deposite(decimal amount)
         {

@@ -13,13 +13,12 @@ namespace P01_BillsPaymentSystem.Data.EntityConfig
             builder.Property(cc => cc.Limit)
                 .IsRequired();
 
-
             builder.Property(cc => cc.MoneyOwned)
                 .IsRequired();
 
             builder.Ignore(cc => cc.LimitLeft);
 
-            builder.Ignore(cc => cc.PaymentMethodId);
+            //builder.Ignore(cc => cc.PaymentMethodId);
 
             builder.Property(cc => cc.ExpirationDate)
                 .IsRequired();

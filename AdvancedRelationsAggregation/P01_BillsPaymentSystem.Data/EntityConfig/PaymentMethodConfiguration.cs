@@ -26,6 +26,7 @@ namespace P01_BillsPaymentSystem.Data.EntityConfig
                 .WithOne(cc => cc.PaymentMethod)
                 .HasForeignKey<PaymentMethod>(pm => pm.BankAccountId);
 
+            //One to many relation
             builder.HasOne(pm => pm.User)
                 .WithMany(cc => cc.PaymentMethods)
                 .HasForeignKey(pm => pm.UserId);
