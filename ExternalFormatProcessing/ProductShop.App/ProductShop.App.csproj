@@ -14,4 +14,8 @@
     <ProjectReference Include="..\ProductShop.Models\ProductShop.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Files\" />
+  </ItemGroup>
+
 </Project>
