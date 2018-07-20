@@ -4,8 +4,4 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\P01_HospitalDatabase\P01_HospitalDatabase.Data.csproj" />
-  </ItemGroup>
-
 </Project>

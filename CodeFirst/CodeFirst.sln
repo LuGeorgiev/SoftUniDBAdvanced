@@ -5,15 +5,17 @@ VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", "{7AFF9BB2-82AC-4D81-9D0B-9A7D28787B9F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P01_HospitalDatabase", "P01_HospitalDatabase\P01_HospitalDatabase.csproj", "{0BCD3B3B-A8B2-4336-8E17-FD9B8AA91DF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P01_HospitalDatabase.Data", "P01_HospitalDatabase\P01_HospitalDatabase.Data.csproj", "{0BCD3B3B-A8B2-4336-8E17-FD9B8AA91DF1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalStartUp", "HospitalStartUp\HospitalStartUp.csproj", "{67E7DE7C-C683-43F7-B5DC-8651D82697E4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalDatabaseInitializer", "HospitalDatabaseInitializer\HospitalDatabaseInitializer.csproj", "{3AB696CF-D3AF-4C22-9DF4-D0932D41EBCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P03_SalesDatabase", "P03_SalesDatabase\P03_SalesDatabase.csproj", "{BE9711FE-A027-4BC3-A176-668C9EC0DF8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P03_SalesDatabase", "P03_SalesDatabase\P03_SalesDatabase.csproj", "{BE9711FE-A027-4BC3-A176-668C9EC0DF8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P03_SalesStartUp", "P03_SalesStartUp\P03_SalesStartUp.csproj", "{317560C5-297C-4645-B57B-BFC5B0533AC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P03_SalesStartUp", "P03_SalesStartUp\P03_SalesStartUp.csproj", "{317560C5-297C-4645-B57B-BFC5B0533AC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P01_HospitalDatabase.Data.Models", "P01_HospitalDatabase.Data.Models\P01_HospitalDatabase.Data.Models.csproj", "{41A1151B-AE90-41D5-A2FA-02AC7E8C097F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{317560C5-297C-4645-B57B-BFC5B0533AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{317560C5-297C-4645-B57B-BFC5B0533AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{317560C5-297C-4645-B57B-BFC5B0533AC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41A1151B-AE90-41D5-A2FA-02AC7E8C097F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41A1151B-AE90-41D5-A2FA-02AC7E8C097F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41A1151B-AE90-41D5-A2FA-02AC7E8C097F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41A1151B-AE90-41D5-A2FA-02AC7E8C097F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

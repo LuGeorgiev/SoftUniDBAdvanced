@@ -26,6 +26,7 @@ namespace BusTicketsSystem.Models
         public int? HomeTownId { get; set; }
         public virtual Town HomeTown { get; set; }
 
+        [ForeignKey("BankAccount")]
         public int? BankAccountId { get; set; }
         public virtual BankAccount BankAccount { get; set; }
 

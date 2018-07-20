@@ -9,12 +9,12 @@ namespace BusTicketsSystem.Data
     public class BusTicketsSystemContext:DbContext
     {
         public BusTicketsSystemContext()
-        {
+        {            
         }
 
         public BusTicketsSystemContext(DbContextOptions options)
             :base(options)
-        {                    
+        {            
         }
         public DbSet<BusCompany> BusCompanies{ get; set; }
         public DbSet<Ticket> Tickets{ get; set; }
@@ -31,6 +31,7 @@ namespace BusTicketsSystem.Data
             {                
                 optionsBuilder
                     .UseLazyLoadingProxies(true)
+                    .EnableSensitiveDataLogging(true)
                     .UseSqlServer(Configuration.ConnectionString);
             }
         }

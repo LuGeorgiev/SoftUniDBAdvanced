@@ -4,14 +4,16 @@ using BusTicketsSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BusTicketsSystem.Data.Migrations
 {
     [DbContext(typeof(BusTicketsSystemContext))]
-    partial class BusTicketsSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20180710174229_NullableForeignKey")]
+    partial class NullableForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,7 @@ namespace BusTicketsSystem.Data.Migrations
 
             modelBuilder.Entity("BusTicketsSystem.Models.BankAccount", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -34,7 +36,13 @@ namespace BusTicketsSystem.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0m);
 
-                    b.HasKey("Id");
+                    b.Property<int?>("CustomerId");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("CustomerId")
+                        .IsUnique()
+                        .HasFilter("[CustomerId] IS NOT NULL");
 
                     b.ToTable("BankAccounts");
                 });
@@ -98,8 +106,6 @@ namespace BusTicketsSystem.Data.Migrations
                         .IsUnicode(true);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BankAccountId");
 
                     b.HasIndex("HomeTownId");
 
@@ -199,8 +205,6 @@ namespace BusTicketsSystem.Data.Migrations
                     b.Property<int?>("OriginStationId")
                         .IsRequired();
 
-                    b.Property<int>("Status");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BusCompanyId");
@@ -212,6 +216,14 @@ namespace BusTicketsSystem.Data.Migrations
                     b.ToTable("Trips");
                 });
 
+            modelBuilder.Entity("BusTicketsSystem.Models.BankAccount", b =>
+                {
+                    b.HasOne("BusTicketsSystem.Models.Customer", "Customer")
+                        .WithOne("BankAccount")
+                        .HasForeignKey("BusTicketsSystem.Models.BankAccount", "CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("BusTicketsSystem.Models.BusStation", b =>
                 {
                     b.HasOne("BusTicketsSystem.Models.Town", "Town")
@@ -221,10 +233,6 @@ namespace BusTicketsSystem.Data.Migrations
 
             modelBuilder.Entity("BusTicketsSystem.Models.Customer", b =>
                 {
-                    b.HasOne("BusTicketsSystem.Models.BankAccount", "BankAccount")
-                        .WithMany()
-                        .HasForeignKey("BankAccountId");
-
                     b.HasOne("BusTicketsSystem.Models.Town", "HomeTown")
                         .WithMany("Customers")
                         .HasForeignKey("HomeTownId")

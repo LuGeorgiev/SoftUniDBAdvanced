@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusTicketsSystem.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -19,15 +20,18 @@ namespace BusTicketsSystem.Models
         public string ArrivalTime { get; set; }
 
         [Required]
-        public int OriginStationId { get; set; }
+        public TripStatus Status { get; set; }
+
+        [Required]
+        public int? OriginStationId { get; set; }
         public virtual BusStation OriginStation { get; set; }
 
         [Required]
-        public int DestinationStationId { get; set; }
+        public int? DestinationStationId { get; set; }
         public virtual BusStation DestinationStation { get; set; }
 
         [Required]
-        public int BusCompanyId { get; set; }
+        public int? BusCompanyId { get; set; }
         public virtual BusCompany BusCompany { get; set; }
 
         public virtual ICollection<Ticket> Tickets { get; set; } = new HashSet<Ticket>();

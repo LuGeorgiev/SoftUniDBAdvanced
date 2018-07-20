@@ -28,7 +28,14 @@ namespace BusTicketsSystem.Data.Config
                 .WithOne(t => t.OriginStation)
                 .HasForeignKey(t => t.OriginStationId)
                 .OnDelete(DeleteBehavior.Restrict);
-                
+
+            //builder.HasData(
+            //    new BusStation {Id=1,Name="Central Station",TownId=1},
+            //    new BusStation {Id=2,Name="Only Station",TownId=2},
+            //    new BusStation {Id=3,Name="North Station",TownId=1},
+            //    new BusStation {Id=4,Name="No Station At All",TownId=3},
+            //    new BusStation {Id=5,Name="South Station",TownId=1}
+            //    );                
         }
     }
 }

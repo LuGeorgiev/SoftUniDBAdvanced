@@ -13,6 +13,14 @@ namespace BusTicketsSystem.Data.Config
         {
             builder.Property(x => x.Name)
                 .HasMaxLength(20);
+
+            //builder.HasData(
+            //    new BusCompany {Id=11,Name="Fine Travel" }, 
+            //    new BusCompany { Id = 2, Name = "Do not look back" },
+            //    new BusCompany { Id = 3, Name = "Fly away" },
+            //    new BusCompany { Id = 4, Name = "Fast and Furious" },
+            //    new BusCompany { Id = 5, Name = "Last but save" }
+            //    );            
         }
     }
 }

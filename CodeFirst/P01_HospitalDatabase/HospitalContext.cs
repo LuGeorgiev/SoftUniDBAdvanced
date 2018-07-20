@@ -30,8 +30,7 @@ namespace P01_HospitalDatabase.Data
         public DbSet<Doctor> Doctors { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
+        {            
 
             if (!optionsBuilder.IsConfigured)
             {
@@ -40,42 +39,29 @@ namespace P01_HospitalDatabase.Data
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            ////My input
-            //modelBuilder.Entity<Patient>()
-            //    .HasMany(v => v.Visitations)
-            //    .WithOne(p => p.Patient)
-            //    .HasForeignKey(p => p.PatientId);
-
-            //modelBuilder.Entity<Patient>()
-            //    .HasMany(d => d.Diagnoses)
-            //    .WithOne(p => p.Patient)
-            //    .HasForeignKey(p => p.PatientId);
-
-            //modelBuilder.Entity<PatientMedicament>()
-            //    .HasKey(k => new { k.PatientId, k.MedicamentId });
+        {            
 
             modelBuilder.Entity<Patient>(entity=> 
             {
                 entity.HasKey(e => e.PatientId);
 
                 entity.Property(e => e.FirstName)
-                .IsRequired(true) //false if can be null
+                //.IsRequired(true) //false if can be null
                 .IsUnicode(true)
                 .HasMaxLength(50);
 
                 entity.Property(e => e.LastName)
-                .IsRequired(true)
+                //.IsRequired(true)
                 .IsUnicode(true)
                 .HasMaxLength(50);
 
                 entity.Property(e => e.Address)
-                .IsRequired(true)
+                //.IsRequired(true)
                 .IsUnicode(true)
                 .HasMaxLength(250);
 
                 entity.Property(e => e.Email)
-                .IsRequired(true)
+                //.IsRequired(true)
                 .IsUnicode(false)
                 .HasMaxLength(80);
 
@@ -89,13 +75,13 @@ namespace P01_HospitalDatabase.Data
                 entity.HasKey(e => e.VisitationId);
 
                 entity.Property(e => e.Date)
-                .IsRequired()
+                //.IsRequired()
                 .HasColumnName("VisitationDate")
                 .HasColumnType("DATETIME2")
                 .HasDefaultValueSql("GETDATE()");
 
                 entity.Property(e => e.Comments)
-                .IsRequired(false)
+                //.IsRequired(false)
                 .IsUnicode()
                 .HasMaxLength(250);
 
@@ -119,7 +105,8 @@ namespace P01_HospitalDatabase.Data
                 entity.HasKey(e => e.DiagnoseId);
 
                 entity.Property(e => e.Name)
-                .IsRequired()
+                //.IsRequired()
+                .IsUnicode()
                 .HasMaxLength(50);
 
                 entity.Property(e => e.Comments)
@@ -139,7 +126,7 @@ namespace P01_HospitalDatabase.Data
 
                 entity.Property(e => e.Name)
                 .HasMaxLength(50)
-                .IsRequired(true)
+                //.IsRequired(true)
                 .IsUnicode(true);
             });
 
@@ -157,7 +144,7 @@ namespace P01_HospitalDatabase.Data
             });
 
             //Second Problem
-            modelBuilder.Entity<Doctor>(entity => 
+            modelBuilder.Entity<Doctor>(entity =>
             {
                 entity.HasKey(e => e.DoctorId);
 

@@ -44,9 +44,9 @@ namespace BookShop
                 //Console.WriteLine(titles);
 
                 //P06.Released Before Date
-                //var releaseBefore = Console.ReadLine();
-                //string books = BooksReleasedBefore(db, releaseBefore);
-                //Console.WriteLine(books);
+                var releaseBefore = Console.ReadLine();
+                string books = GetBooksReleasedBefore(db, releaseBefore);
+                Console.WriteLine(books);
 
                 //P07.	Author Search
                 //string endingIn = Console.ReadLine();
@@ -84,13 +84,12 @@ namespace BookShop
                 //IncreasePrices(db);
 
                 //P15.	Remove Books
-
-                int removedBooks = RemoveBooks(db);
-                Console.WriteLine(removedBooks+" books were deleted");
+                //int removedBooks = RemoveBooks(db);
+                //Console.WriteLine(removedBooks+" books were deleted");
             }
         }
 
-        private static int RemoveBooks(BookShopContext db)
+        public static int RemoveBooks(BookShopContext db)
         {
             //Mine Approach
             //int countRemoved = 0;
@@ -115,7 +114,7 @@ namespace BookShop
             return result;
         }
 
-        private static void IncreasePrices(BookShopContext db)
+        public static void IncreasePrices(BookShopContext db)
         {
             DateTime releaseBefore = new DateTime(2010, 1, 1);
             
@@ -129,7 +128,7 @@ namespace BookShop
             db.SaveChanges();            
         }
 
-        private static string GetMostRecentBooks(BookShopContext db)
+        public static string GetMostRecentBooks(BookShopContext db)
         {
             var mostRecentBooksByCategory = db.Categories
                 .OrderBy(c=>c.Name)
@@ -286,7 +285,7 @@ namespace BookShop
             var sb = new StringBuilder();
 
             var titles = db.Books
-                .Where(x => x.Title.Contains(containing))
+                .Where(x => x.Title.ToLower().Contains(containing.ToLower()))
                 .Select(x => new { x.Title })
                 .OrderBy(x => x.Title);
 
@@ -317,7 +316,7 @@ namespace BookShop
             return sb.ToString().TrimEnd();
         }
 
-        public static string BooksReleasedBefore(BookShopContext db, string releaseBefore)
+        public static string GetBooksReleasedBefore(BookShopContext db, string releaseBefore)
         {
             //Mine approach
             //DateTime releaseDate = DateTime.ParseExact(releaseBefore, "dd-MM-yyyy", CultureInfo.InvariantCulture);
@@ -341,12 +340,12 @@ namespace BookShop
 
             //Bojidar Danchev Approach
 
-            DateTime releaseDate = DateTime.ParseExact(releaseBefore, "dd-MM-yyyy", null);
+            DateTime releaseDate = DateTime.ParseExact(releaseBefore, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
             string[] books = db.Books
-                .Where(b => b.ReleaseDate < releaseDate)
+                .Where(b => b.ReleaseDate.Value < releaseDate)
                 .OrderByDescending(b=>b.ReleaseDate)
-                .Select(b => $"{b.Title} - {b.EditionType} - {b.Price:F2}")
+                .Select(b => $"{b.Title} - {b.EditionType} - ${b.Price:F2}")
                 .ToArray();
             string result = String.Join(Environment.NewLine, books);
             return result;

@@ -4,14 +4,16 @@ using BusTicketsSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BusTicketsSystem.Data.Migrations
 {
     [DbContext(typeof(BusTicketsSystemContext))]
-    partial class BusTicketsSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20180711100710_BankAccountRemoveForeignKey")]
+    partial class BankAccountRemoveForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,8 +200,6 @@ namespace BusTicketsSystem.Data.Migrations
 
                     b.Property<int?>("OriginStationId")
                         .IsRequired();
-
-                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 

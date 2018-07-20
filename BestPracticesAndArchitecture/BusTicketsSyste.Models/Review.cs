@@ -18,10 +18,10 @@ namespace BusTicketsSystem.Models
 
         public DateTime PublishingDatetime { get; set; }
 
-        public int BusCompanyId { get; set; }
+        public int? BusCompanyId { get; set; }
         public virtual BusCompany BusCompany { get; set; }
 
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
     }
 }

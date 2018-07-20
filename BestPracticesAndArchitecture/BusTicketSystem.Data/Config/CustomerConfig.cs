@@ -29,7 +29,14 @@ namespace BusTicketsSystem.Data.Config
                 .WithMany(x => x.Customers)
                 .HasForeignKey(x => x.HomeTownId)
                 .OnDelete(DeleteBehavior.Restrict);
-                
+
+            //builder.HasData(
+            //    new Customer {Id=1,BankAccountId=1,FirstName="Ivan",LastName="Ivanov", Gender="Male",HomeTownId=2},
+            //    new Customer {Id=2,BankAccountId=2,FirstName="Petkan",LastName="Petkov", Gender="Male",HomeTownId=2},
+            //    new Customer {Id=3,BankAccountId=3,FirstName="Martin",LastName="Martinov", Gender="Male",HomeTownId=2},
+            //    new Customer {Id=4,BankAccountId=4,FirstName="Ivana",LastName="Ivanova", Gender="Male",HomeTownId=2},
+            //    new Customer {Id=5,BankAccountId=5,FirstName="Marina",LastName="Marinova", Gender="Male",HomeTownId=2}
+            //    );
         }
     }
 }

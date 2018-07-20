@@ -8,7 +8,7 @@ namespace BusTicketsSystem.Models
     public class BankAccount
     {
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string AccountNumber { get; set; }
@@ -16,7 +16,7 @@ namespace BusTicketsSystem.Models
         [Required]
         public decimal Balance { get; set; }
 
-        public int CustomerId { get; set; }
-        public virtual Customer Customer { get; set; }
+        //public int? CustomerId { get; set; }
+        //public virtual Customer Customer { get; set; }
     }
 }
