@@ -12,13 +12,11 @@ namespace Instagraph.Models
         [Required]
         public string Caption { get; set; }
 
-        [Required]
-        [ForeignKey("User")]
+        [Required]        
         public int UserId  { get; set; }        
         public virtual User User  { get; set; }
 
-        [Required]
-        [ForeignKey("Picture")]
+        [Required]        
         public int PictureId  { get; set; }
         public virtual Picture Picture  { get; set; }
 

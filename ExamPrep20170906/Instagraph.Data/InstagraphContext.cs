@@ -1,4 +1,5 @@
-﻿using Instagraph.Models;
+﻿using Instagraph.Data.Config;
+using Instagraph.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Instagraph.Data
@@ -32,10 +33,13 @@ namespace Instagraph.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>(ent=> {
-                ent.HasIndex(e => e.Username)
-                .IsUnique();
-            });
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+
+            modelBuilder.ApplyConfiguration(new UserFollowerConfiguration());
+
+            modelBuilder.ApplyConfiguration(new PostConfiguration());
+
+            modelBuilder.ApplyConfiguration(new CommentConfiguration());
         }
     }
 }

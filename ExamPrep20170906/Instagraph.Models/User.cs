@@ -18,8 +18,7 @@ namespace Instagraph.Models
         [MaxLength(20)]
         public string Password { get; set; }
 
-        [Required]
-        [ForeignKey("ProfilePicture")]
+        [Required]        
         public int ProfilePictureId { get; set; }
         public virtual Picture ProfilePicture  { get; set; }
 
@@ -28,6 +27,7 @@ namespace Instagraph.Models
 
         [InverseProperty("Follower")]
         public virtual ICollection<UserFollower> UsersFollowing  { get; set; } = new HashSet<UserFollower>();
+
         public virtual ICollection<Post> Posts { get; set; } = new HashSet<Post>();
         public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
     }
