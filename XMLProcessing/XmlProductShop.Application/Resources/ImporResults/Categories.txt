@@ -1,0 +1,11 @@
+Category Drugs was added!
+Category Adult was added!
+Category Electronics was added!
+Category Garden was added!
+Category Weapons was added!
+Category For Children was added!
+Category Sports was added!
+Category Fashion was added!
+Category Autoparts was added!
+Category Business was added!
+Category Other was added!
