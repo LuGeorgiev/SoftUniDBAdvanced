@@ -60,8 +60,7 @@ namespace Demo
                 .Where(e => e.Salary < 3000)
                 .Update(e => new Employee() { Salary =e.Salary+ 2000m });
 
-            context.SaveChanges();
-                       
+            context.SaveChanges();                     
 
 
         }
