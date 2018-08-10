@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Text;
@@ -127,6 +128,7 @@
             var sb = new StringBuilder();
             var ser = new XmlSerializer(typeof(ProcedureDto[]), new XmlRootAttribute("Procedures"));
             var deserializedProcedures = (ProcedureDto[])ser.Deserialize(new StringReader(xmlString));
+
             var validProcedures = new List<Procedure>();
             var vets = context.Vets.ToArray();
             var animals = context.Animals.ToArray();
@@ -134,50 +136,57 @@
 
             foreach (var dtoProc in deserializedProcedures)
             {
-                var vet = vets.FirstOrDefault(x => x.Name == dtoProc.Vet);
-                var animal = animals.FirstOrDefault(x => x.PassportSerialNumber == dtoProc.Animal);
-                var validDate = DateTime.TryParse(dtoProc.DateTime, out var date);
+                var vet = vets.SingleOrDefault(x => x.Name == dtoProc.Vet);
+                var animal = animals.SingleOrDefault(x => x.PassportSerialNumber == dtoProc.Animal);
+                var date = DateTime.ParseExact(dtoProc.DateTime,"dd-MM-yyyy",CultureInfo.InvariantCulture);
 
-                if (vet==null||animal==null||validDate==false)
+                if (vet==null||animal==null||!IsValid(dtoProc))
                 {
-                    sb.Append(FailourMessage);
+                    sb.AppendLine(FailourMessage);
                     continue;
                 }
 
+
+                
+                bool invalidAidDetected = false;
+                var validProcedureAnimalAids = new List<ProcedureAnimalAid>();
+                foreach (var aidDto in dtoProc.AnimalAids)
+                {
+                    var animalAid = animalAids.SingleOrDefault(x => x.Name == aidDto.Name);
+                    if (animalAid==null||IsValid(aidDto))
+                    {
+                        sb.AppendLine(FailourMessage);
+                        invalidAidDetected = true;
+                        break;
+                    }
+
+                    if (validProcedureAnimalAids.Any(x=>x.AnimalAid.Name==aidDto.Name))
+                    {
+                        sb.AppendLine(FailourMessage);
+                        invalidAidDetected = true;
+                        break;
+                    }
+                    validProcedureAnimalAids.Add(new ProcedureAnimalAid { AnimalAid = animalAid });                  
+                }
+                if (invalidAidDetected)
+                {
+                    sb.AppendLine(FailourMessage);
+                    continue;
+                }
+                
                 var procedure = new Procedure()
                 {
                      AnimalId=animal.Id,
                      VetId=vet.Id,
-                     DateTime=date                      
+                     DateTime=date,
+                     ProcedureAnimalAids=validProcedureAnimalAids
                 };
 
-                
-                bool invalidAidDetected = false;
-                foreach (var aidDto in dtoProc.AnimalAids)
+                if (!IsValid(procedure))
                 {
-                    var animalAid = animalAids.SingleOrDefault(x => x.Name == aidDto.Name);
-                    if (animalAid==null)
-                    {
-                        sb.Append(FailourMessage);
-                        invalidAidDetected = true;
-                        break;
-                    }
-
-                    if (procedure.ProcedureAnimalAids.Any(x=>x.AnimalAid.Name==aidDto.Name))
-                    {
-                        sb.Append(FailourMessage);
-                        invalidAidDetected = true;
-                        break;
-                    }
-                    procedure.ProcedureAnimalAids.Add(new ProcedureAnimalAid { AnimalAid = animalAid });
-                   
-                }
-                if (invalidAidDetected)
-                {
-                    sb.Append(FailourMessage);
+                    sb.AppendLine(FailourMessage);
                     continue;
                 }
-                
                 validProcedures.Add(procedure);
                 sb.AppendLine(successImport);
             }

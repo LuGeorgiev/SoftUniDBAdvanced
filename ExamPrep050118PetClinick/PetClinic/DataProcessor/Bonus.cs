@@ -19,6 +19,7 @@
 
             var oldProffesion = vet.Profession;
             vet.Profession = newProfession;
+
             context.Vets.Update(vet);
             context.SaveChanges();
 
